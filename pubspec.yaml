@@ -5,16 +5,21 @@ author: Vico Aguado <contacto@vico-aguado.com>
 homepage: https://github.com/vico-aguado/flutter_wallet
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   meta: ^1.3.0
+  material_color_utilities: 0.11.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  async: 2.12.0
+  fake_async: 1.3.2
+  leak_tracker: 10.0.8
+  vm_service: 14.3.1
 
 flutter:
   plugin:

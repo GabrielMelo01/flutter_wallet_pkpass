@@ -36,17 +36,19 @@ class _MyAppState extends State<MyApp> {
     Response response;
     Dio dio = new Dio();
 
-    response = await dio.post("http://domain.com/getPKPass.php", data: jsonParameters, options: Options(responseType: ResponseType.bytes));
+    try {
+      response = await dio.post("http://domain.com/getPKPass.php", data: jsonParameters, options: Options(responseType: ResponseType.bytes));
 
-    if (response.data != null) {
-      try {
+      if (response.data != null) {
         var result = await FlutterWallet.addPass(pkpass: response.data);
         print(result);
-      } catch (e) {
-        print(e.message);
       }
-    } else {
-
+    } catch (e) {
+      if (e is DioError) {
+        print(e.message);
+      } else {
+        print(e.toString());
+      }
     }
   }
 
@@ -58,9 +60,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Passbook example app'),
         ),
         body: Center(
-          child: RaisedButton(child: Text("Get Passbook"), onPressed: () {
-            getPass();
-          },),
+          child: ElevatedButton(
+            child: Text("Get Passbook"),
+            onPressed: () {
+              getPass();
+            },
+          ),
         ),
       ),
     );
